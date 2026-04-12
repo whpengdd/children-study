@@ -1,0 +1,32 @@
+[
+  {
+    "name": "动物大游行",
+    "script": [
+      { "kind": "say",        "text": "Welcome to the animal parade! 欢迎看动物游行！", "ms": 2000 },
+      { "kind": "emote",      "emoji": "🦁", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "Here comes a {{word1}}!" },
+      { "kind": "action",     "emoji": "🐘", "ms": 800 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "And a {{word2}}!" },
+      { "kind": "action",     "emoji": "🐒", "ms": 800 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "Don't forget the {{word3}}!" },
+      { "kind": "action",     "emoji": "🦓", "ms": 800 },
+      { "kind": "say",        "text": "What a parade! 好棒的游行！", "ms": 1700 },
+      { "kind": "emote",      "emoji": "🎪", "ms": 700 }
+    ]
+  },
+  {
+    "name": "小动物音乐会",
+    "script": [
+      { "kind": "emote",      "emoji": "🎵", "ms": 500 },
+      { "kind": "say",        "text": "The animals are playing music! 小动物们在演奏！", "ms": 2200 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "The {{word1}} sings first" },
+      { "kind": "action",     "emoji": "🎤", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "Then the {{word2}} dances" },
+      { "kind": "action",     "emoji": "💃", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "The {{word3}} claps along" },
+      { "kind": "action",     "emoji": "👏", "ms": 700 },
+      { "kind": "say",        "text": "Bravo! 好极了！", "ms": 1200 },
+      { "kind": "emote",      "emoji": "🌟", "ms": 600 }
+    ]
+  }
+]

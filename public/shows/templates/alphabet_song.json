@@ -1,0 +1,32 @@
+[
+  {
+    "name": "字母大合唱",
+    "script": [
+      { "kind": "say",        "text": "Let's sing the ABC song! 让我们唱字母歌！", "ms": 2000 },
+      { "kind": "emote",      "emoji": "🎤", "ms": 600 },
+      { "kind": "say",        "text": "A, B, C, D, E, F, G", "ms": 1800 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "A is for {{word1}}!" },
+      { "kind": "say",        "text": "H, I, J, K, LMNOP", "ms": 1800 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "B is for {{word2}}!" },
+      { "kind": "say",        "text": "Q, R, S, T, U, V", "ms": 1800 },
+      { "kind": "action",     "emoji": "💃", "ms": 1000 },
+      { "kind": "say",        "text": "W, X, Y, and Z 好棒！", "ms": 1800 },
+      { "kind": "emote",      "emoji": "🌟", "ms": 800 }
+    ]
+  },
+  {
+    "name": "字母舞台秀",
+    "script": [
+      { "kind": "emote",      "emoji": "🎭", "ms": 500 },
+      { "kind": "say",        "text": "Welcome to my alphabet show! 欢迎看我的字母表演！", "ms": 2200 },
+      { "kind": "action",     "emoji": "✨", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "First up: {{word1}}" },
+      { "kind": "say",        "text": "Can you say it with me? 能和我一起说吗？", "ms": 1800 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "Next: {{word2}}" },
+      { "kind": "action",     "emoji": "🎶", "ms": 900 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "And finally: {{word3}}" },
+      { "kind": "say",        "text": "That's the end of my show! 我的表演结束啦！", "ms": 1800 },
+      { "kind": "emote",      "emoji": "🥰", "ms": 700 }
+    ]
+  }
+]

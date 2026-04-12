@@ -1,0 +1,1165 @@
+{
+  "generatedAt": "2026-04-12T09:52:45.186Z",
+  "words": [
+    {
+      "id": "w-and-c",
+      "headWord": "and",
+      "pos": "conj.",
+      "phonetic": {
+        "us": "ənd, ən,ænd",
+        "uk": "ənd; (ə)n; ænd"
+      },
+      "translation": "和",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 2,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "He has fish and chips.",
+          "cn": "他有炸鱼薯条。",
+          "source": "ai"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🔤",
+          "caption": "and",
+          "cn": "和"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "The film has Jack and Shirley.",
+          "cn": "电影有杰克和雪莉。",
+          "source": "ai"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "and",
+          "options": [
+            "and",
+            "but",
+            "or",
+            "so"
+          ],
+          "answer": "and"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "and",
+          "options": [
+            "和",
+            "或",
+            "但",
+            "所以"
+          ],
+          "answer": "和"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "和",
+          "options": [
+            "and",
+            "but",
+            "or",
+            "so"
+          ],
+          "answer": "and"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "I eat rice ____ noodles.",
+          "cn": "我吃米饭和面条。",
+          "options": [
+            "and",
+            "but",
+            "or",
+            "so"
+          ],
+          "answer": "and"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "Mom has tea ____ coffee.",
+          "cn": "妈妈喝茶和咖啡。",
+          "options": [
+            "and",
+            "but",
+            "or",
+            "so"
+          ],
+          "answer": "and"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "and",
+          "answer": "and"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "和",
+          "answer": "and"
+        }
+      ]
+    },
+    {
+      "id": "w-apple-n",
+      "headWord": "apple",
+      "pos": "n.",
+      "phonetic": {
+        "us": "'æpl",
+        "uk": "'æp(ə)l"
+      },
+      "translation": "苹果",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 2,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "apple pie",
+          "cn": "苹果馅饼",
+          "source": "dict"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🍎",
+          "caption": "apple",
+          "cn": "苹果"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "an apple tree",
+          "cn": "苹果树",
+          "source": "dict"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "apple",
+          "options": [
+            "apple",
+            "banana",
+            "pear",
+            "grape"
+          ],
+          "answer": "apple"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "apple",
+          "options": [
+            "苹果",
+            "香蕉",
+            "葡萄",
+            "梨"
+          ],
+          "answer": "苹果"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "苹果",
+          "options": [
+            "apple",
+            "banana",
+            "pear",
+            "grape"
+          ],
+          "answer": "apple"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "I eat an ____.",
+          "cn": "我吃一个苹果。",
+          "options": [
+            "apple",
+            "banana",
+            "pear",
+            "grape"
+          ],
+          "answer": "apple"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "We have red ____.",
+          "cn": "我们有红苹果。",
+          "options": [
+            "apple",
+            "banana",
+            "pear",
+            "grape"
+          ],
+          "answer": "apple"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "apple",
+          "answer": "apple"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "苹果",
+          "answer": "apple"
+        }
+      ]
+    },
+    {
+      "id": "w-arm-n",
+      "headWord": "arm",
+      "pos": "n.",
+      "phonetic": {
+        "us": "ɑrm",
+        "uk": "ɑːm"
+      },
+      "translation": "胳膊",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 1,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "This is a arm.",
+          "cn": "这是一个胳膊。",
+          "source": "ai"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "💪",
+          "caption": "arm",
+          "cn": "胳膊"
+        },
+        {
+          "tier": 1,
+          "kind": "chant",
+          "lines": [
+            "arm, arm!",
+            "I like arm.",
+            "arm, yes I do!"
+          ],
+          "cn": "胳膊"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "arm",
+          "options": [
+            "arm",
+            "leg",
+            "hand",
+            "ear"
+          ],
+          "answer": "arm"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "arm",
+          "options": [
+            "胳膊",
+            "腿",
+            "手",
+            "脚"
+          ],
+          "answer": "胳膊"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "胳膊",
+          "options": [
+            "arm",
+            "leg",
+            "hand",
+            "ear"
+          ],
+          "answer": "arm"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "The boy lifts his ____.",
+          "cn": "男孩抬起他的胳膊。",
+          "options": [
+            "arm",
+            "leg",
+            "foot",
+            "hand"
+          ],
+          "answer": "arm"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "I hug my ____.",
+          "cn": "我抱我的胳膊。",
+          "options": [
+            "arm",
+            "leg",
+            "ear",
+            "nose"
+          ],
+          "answer": "arm"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "arm",
+          "answer": "arm"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "胳膊",
+          "answer": "arm"
+        }
+      ]
+    },
+    {
+      "id": "w-bag-n",
+      "headWord": "bag",
+      "pos": "n.",
+      "phonetic": {
+        "us": "bæɡ",
+        "uk": "bæg"
+      },
+      "translation": "包",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 1,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "I have my bag.",
+          "cn": "我有我的包。",
+          "source": "ai"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🎒",
+          "caption": "bag",
+          "cn": "包"
+        },
+        {
+          "tier": 1,
+          "kind": "chant",
+          "lines": [
+            "bag, bag!",
+            "I like bag.",
+            "bag, yes I do!"
+          ],
+          "cn": "包"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "bag",
+          "options": [
+            "box",
+            "jar",
+            "tub",
+            "bag"
+          ],
+          "answer": "bag"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "bag",
+          "options": [
+            "包",
+            "盒子",
+            "瓶子",
+            "篮子"
+          ],
+          "answer": "包"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "包",
+          "options": [
+            "box",
+            "bag",
+            "jar",
+            "tub"
+          ],
+          "answer": "bag"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "My ____ is red.",
+          "cn": "我的包是红色的。",
+          "options": [
+            "bag",
+            "box",
+            "jar",
+            "tub"
+          ],
+          "answer": "bag"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "He likes new ____.",
+          "cn": "他喜欢新包。",
+          "options": [
+            "bag",
+            "box",
+            "jar",
+            "sack"
+          ],
+          "answer": "bag"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "bag",
+          "answer": "bag"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "包",
+          "answer": "bag"
+        }
+      ]
+    },
+    {
+      "id": "w-ball-n",
+      "headWord": "ball",
+      "pos": "n.",
+      "phonetic": {
+        "us": "bɔl",
+        "uk": "bɔːl"
+      },
+      "translation": "球",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 2,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "The ball drifted on the water.",
+          "cn": "那只皮球在水面上漂荡。",
+          "source": "dict"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "⚽",
+          "caption": "ball",
+          "cn": "球"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "He hits the ball high.",
+          "cn": "他把球打得高高的。",
+          "source": "ai"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "ball",
+          "options": [
+            "bat",
+            "ball",
+            "glove",
+            "kite"
+          ],
+          "answer": "ball"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "ball",
+          "options": [
+            "球",
+            "球拍",
+            "棒球",
+            "羽毛球"
+          ],
+          "answer": "球"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "球",
+          "options": [
+            "ball",
+            "bat",
+            "glove",
+            "kite"
+          ],
+          "answer": "ball"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "I kick the ____.",
+          "cn": "我踢那个球。",
+          "options": [
+            "ball",
+            "bat",
+            "glove",
+            "kite"
+          ],
+          "answer": "ball"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "My dog likes the ____.",
+          "cn": "我的狗喜欢那个球。",
+          "options": [
+            "ball",
+            "bat",
+            "glove",
+            "kite"
+          ],
+          "answer": "ball"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "ball",
+          "answer": "ball"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "球",
+          "answer": "ball"
+        }
+      ]
+    },
+    {
+      "id": "w-banana-n",
+      "headWord": "banana",
+      "pos": "n.",
+      "phonetic": {
+        "us": "bə'nænə",
+        "uk": "bə'nɑːnə"
+      },
+      "translation": "香蕉",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 2,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "The area is under banana cultivation.",
+          "cn": "这个地区种植香蕉。",
+          "source": "dict"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🍌",
+          "caption": "banana",
+          "cn": "香蕉"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "The banana tree has fruits.",
+          "cn": "香蕉树有果实。",
+          "source": "ai"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "banana",
+          "options": [
+            "apple",
+            "orange",
+            "grape",
+            "banana"
+          ],
+          "answer": "banana"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "banana",
+          "options": [
+            "香蕉",
+            "苹果",
+            "橙子",
+            "葡萄"
+          ],
+          "answer": "香蕉"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "黄色水果",
+          "options": [
+            "apple",
+            "orange",
+            "banana",
+            "grape"
+          ],
+          "answer": "banana"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "She eats a ____.",
+          "cn": "她吃香蕉。",
+          "options": [
+            "banana",
+            "apple",
+            "orange",
+            "grape"
+          ],
+          "answer": "banana"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "My snack is a ____.",
+          "cn": "我的零食是香蕉。",
+          "options": [
+            "banana",
+            "apple",
+            "orange",
+            "grape"
+          ],
+          "answer": "banana"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "banana",
+          "answer": "banana"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "香蕉",
+          "answer": "banana"
+        }
+      ]
+    },
+    {
+      "id": "w-bear-v",
+      "headWord": "bear",
+      "pos": "v.",
+      "phonetic": {
+        "us": "bɛr",
+        "uk": "beə"
+      },
+      "translation": "熊",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 1,
+        "exam": [],
+        "cefr": "A2"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "This is a bear.",
+          "cn": "这是一个熊。",
+          "source": "ai"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🐻",
+          "caption": "bear",
+          "cn": "熊"
+        },
+        {
+          "tier": 1,
+          "kind": "chant",
+          "lines": [
+            "bear, bear!",
+            "I like bear.",
+            "bear, yes I do!"
+          ],
+          "cn": "熊"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "bear",
+          "options": [
+            "bear",
+            "cat",
+            "dog",
+            "lion"
+          ],
+          "answer": "bear"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "bear",
+          "options": [
+            "熊",
+            "狗",
+            "猫",
+            "狮子"
+          ],
+          "answer": "熊"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "熊",
+          "options": [
+            "lion",
+            "bear",
+            "tiger",
+            "dog"
+          ],
+          "answer": "bear"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "I see a ____.",
+          "cn": "我看到一只____。",
+          "options": [
+            "bear",
+            "cat",
+            "dog",
+            "lion"
+          ],
+          "answer": "bear"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "The ____ is big.",
+          "cn": "这只____很大。",
+          "options": [
+            "bear",
+            "cat",
+            "lion",
+            "dog"
+          ],
+          "answer": "bear"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "bear",
+          "answer": "bear"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "熊",
+          "answer": "bear"
+        }
+      ]
+    },
+    {
+      "id": "w-beautiful-a",
+      "headWord": "beautiful",
+      "pos": "adj.",
+      "phonetic": {
+        "us": "'bjʊtəfəl",
+        "uk": "ˈbju:tɪfl"
+      },
+      "translation": "美丽的",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 2,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "The rose is beautiful.",
+          "cn": "玫瑰很美丽。",
+          "source": "ai"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🌹",
+          "caption": "beautiful",
+          "cn": "美丽的"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "a beautiful bunch of flowers",
+          "cn": "一束美丽的花",
+          "source": "dict"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "beautiful",
+          "options": [
+            "nice",
+            "pretty",
+            "beautiful",
+            "good"
+          ],
+          "answer": "beautiful"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "beautiful",
+          "options": [
+            "美丽的",
+            "漂亮的",
+            "可爱的",
+            "好看的"
+          ],
+          "answer": "美丽的"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "美丽的",
+          "options": [
+            "beautiful",
+            "pretty",
+            "nice",
+            "lovely"
+          ],
+          "answer": "beautiful"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "My flower is ____.",
+          "cn": "我的花很美。",
+          "options": [
+            "beautiful",
+            "pretty",
+            "nice",
+            "lovely"
+          ],
+          "answer": "beautiful"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "The sky looks ____.",
+          "cn": "天空看起来很美。",
+          "options": [
+            "beautiful",
+            "pretty",
+            "nice",
+            "lovely"
+          ],
+          "answer": "beautiful"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "beautiful",
+          "answer": "beautiful"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "美丽的",
+          "answer": "beautiful"
+        }
+      ]
+    },
+    {
+      "id": "w-big-a",
+      "headWord": "big",
+      "pos": "adj.",
+      "phonetic": {
+        "us": "bɪɡ",
+        "uk": "bɪg"
+      },
+      "translation": "大的",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 2,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "a big house",
+          "cn": "大房子",
+          "source": "dict"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🐘",
+          "caption": "big",
+          "cn": "大的"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "I need a bigger desk.",
+          "cn": "我需要一张大一点的桌子。",
+          "source": "dict"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "big",
+          "options": [
+            "big",
+            "small",
+            "tall",
+            "short"
+          ],
+          "answer": "big"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "big",
+          "options": [
+            "大",
+            "小",
+            "高",
+            "长"
+          ],
+          "answer": "大"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "大的",
+          "options": [
+            "big",
+            "small",
+            "tall",
+            "long"
+          ],
+          "answer": "big"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "The box is ____.",
+          "cn": "这个盒子是大的。",
+          "options": [
+            "big",
+            "small",
+            "tall",
+            "short"
+          ],
+          "answer": "big"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "My room is ____.",
+          "cn": "我的房间是大的。",
+          "options": [
+            "big",
+            "small",
+            "tall",
+            "short"
+          ],
+          "answer": "big"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "big",
+          "answer": "big"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "大的",
+          "answer": "big"
+        }
+      ]
+    },
+    {
+      "id": "w-bird-n",
+      "headWord": "bird",
+      "pos": "n.",
+      "phonetic": {
+        "us": "bɝd",
+        "uk": "bɜːd"
+      },
+      "translation": "鸟",
+      "tags": {
+        "pepGrade": 3,
+        "pepTerm": 1,
+        "exam": [],
+        "cefr": "A1"
+      },
+      "scenarios": [
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "wild birds",
+          "cn": "野鸟",
+          "source": "dict"
+        },
+        {
+          "tier": 1,
+          "kind": "image",
+          "emoji": "🐦",
+          "caption": "bird",
+          "cn": "鸟"
+        },
+        {
+          "tier": 1,
+          "kind": "sentence",
+          "text": "Birds sing loud.",
+          "cn": "鸟唱得响亮。",
+          "source": "ai"
+        },
+        {
+          "tier": 2,
+          "kind": "listen_choose",
+          "audioWord": "bird",
+          "options": [
+            "cat",
+            "dog",
+            "bird",
+            "rabbit"
+          ],
+          "answer": "bird"
+        },
+        {
+          "tier": 2,
+          "kind": "en_to_cn_mcq",
+          "prompt": "bird",
+          "options": [
+            "猫",
+            "狗",
+            "鸟",
+            "兔子"
+          ],
+          "answer": "鸟"
+        },
+        {
+          "tier": 3,
+          "kind": "cn_to_en_mcq",
+          "promptCn": "鸟",
+          "options": [
+            "cat",
+            "dog",
+            "rabbit",
+            "bird"
+          ],
+          "answer": "bird"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "The ____ is small.",
+          "cn": "这只 ____ 很小。",
+          "options": [
+            "cat",
+            "dog",
+            "bird",
+            "fox"
+          ],
+          "answer": "bird"
+        },
+        {
+          "tier": 3,
+          "kind": "fill_blank_choose",
+          "sentenceWithBlank": "____ can fly high.",
+          "cn": "____ 能 飞得 高。",
+          "options": [
+            "cat",
+            "dog",
+            "bird",
+            "rabbit"
+          ],
+          "answer": "bird"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_audio",
+          "audioWord": "bird",
+          "answer": "bird"
+        },
+        {
+          "tier": 4,
+          "kind": "spell_from_cn",
+          "promptCn": "鸟",
+          "answer": "bird"
+        }
+      ]
+    }
+  ],
+  "byPepGrade": {
+    "3": [
+      "w-and-c",
+      "w-apple-n",
+      "w-arm-n",
+      "w-bag-n",
+      "w-ball-n",
+      "w-banana-n",
+      "w-bear-v",
+      "w-beautiful-a",
+      "w-big-a",
+      "w-bird-n"
+    ],
+    "4": [],
+    "5": [],
+    "6": []
+  },
+  "byExam": {
+    "KET": [],
+    "PET": []
+  }
+}

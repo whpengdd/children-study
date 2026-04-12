@@ -1,0 +1,31 @@
+[
+  {
+    "name": "宠物小考官",
+    "script": [
+      { "kind": "say",        "text": "Quiz time! 小考试时间！", "ms": 1600 },
+      { "kind": "emote",      "emoji": "🎓", "ms": 600 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "Do you remember {{word1}}?" },
+      { "kind": "say",        "text": "Think about it... 想一想...", "ms": 1800 },
+      { "kind": "wait",       "ms": 1500 },
+      { "kind": "action",     "emoji": "💡", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "And what about {{word2}}?" },
+      { "kind": "say",        "text": "You can do it! 你能做到的！", "ms": 1800 },
+      { "kind": "emote",      "emoji": "🌟", "ms": 600 },
+      { "kind": "say",        "text": "Great job! 做得好！", "ms": 1400 }
+    ]
+  },
+  {
+    "name": "词汇小挑战",
+    "script": [
+      { "kind": "emote",      "emoji": "🤔", "ms": 600 },
+      { "kind": "say",        "text": "Ready for a challenge? 准备好挑战了吗？", "ms": 2000 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "Say it with me: {{word1}}" },
+      { "kind": "wait",       "ms": 1200 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "Now try: {{word2}}" },
+      { "kind": "wait",       "ms": 1200 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "Last one: {{word3}}" },
+      { "kind": "action",     "emoji": "🏅", "ms": 800 },
+      { "kind": "say",        "text": "You're a star! 你是明星！", "ms": 1600 }
+    ]
+  }
+]

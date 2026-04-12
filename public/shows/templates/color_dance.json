@@ -1,0 +1,31 @@
+[
+  {
+    "name": "彩虹舞蹈",
+    "script": [
+      { "kind": "say",        "text": "Time for a color dance! 来跳颜色舞！", "ms": 1800 },
+      { "kind": "emote",      "emoji": "🌈", "ms": 600 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "First color: {{word1}}!" },
+      { "kind": "action",     "emoji": "💃", "ms": 900 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "Next: {{word2}}!" },
+      { "kind": "action",     "emoji": "🕺", "ms": 900 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "And: {{word3}}!" },
+      { "kind": "say",        "text": "So colorful! 五彩缤纷！", "ms": 1500 },
+      { "kind": "emote",      "emoji": "✨", "ms": 700 }
+    ]
+  },
+  {
+    "name": "颜色翻跟头",
+    "script": [
+      { "kind": "emote",      "emoji": "🎨", "ms": 500 },
+      { "kind": "say",        "text": "Let's paint with colors! 用颜色画画吧！", "ms": 2000 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "Red... {{word1}}!" },
+      { "kind": "action",     "emoji": "🔴", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "Blue... {{word2}}!" },
+      { "kind": "action",     "emoji": "🔵", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "Yellow... {{word3}}!" },
+      { "kind": "action",     "emoji": "🟡", "ms": 700 },
+      { "kind": "say",        "text": "Look at my rainbow! 看我的彩虹！", "ms": 1800 },
+      { "kind": "emote",      "emoji": "🌈", "ms": 800 }
+    ]
+  }
+]

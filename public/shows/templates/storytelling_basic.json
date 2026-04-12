@@ -1,0 +1,33 @@
+[
+  {
+    "name": "小小冒险故事",
+    "script": [
+      { "kind": "say",        "text": "Once upon a time... 从前啊...", "ms": 2000 },
+      { "kind": "emote",      "emoji": "📖", "ms": 600 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "There was a {{word1}}." },
+      { "kind": "say",        "text": "It lived in a big forest. 它住在大森林里。", "ms": 2000 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "One day it found a {{word2}}." },
+      { "kind": "say",        "text": "It was very happy! 它非常开心！", "ms": 1800 },
+      { "kind": "action",     "emoji": "😊", "ms": 800 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "Then came a {{word3}}." },
+      { "kind": "say",        "text": "They became best friends. 他们成了最好的朋友。", "ms": 2200 },
+      { "kind": "emote",      "emoji": "💖", "ms": 800 },
+      { "kind": "say",        "text": "The end. 故事结束。", "ms": 1500 }
+    ]
+  },
+  {
+    "name": "我的小屋故事",
+    "script": [
+      { "kind": "emote",      "emoji": "🏡", "ms": 600 },
+      { "kind": "say",        "text": "I live in a little house. 我住在一间小屋里。", "ms": 2100 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "I have a {{word1}} on my desk." },
+      { "kind": "say",        "text": "Every morning I say hello to it. 每天早上我和它打招呼。", "ms": 2400 },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "I also have a {{word2}} by the window." },
+      { "kind": "say",        "text": "It makes me smile. 它让我微笑。", "ms": 1700 },
+      { "kind": "action",     "emoji": "😄", "ms": 700 },
+      { "kind": "speak_word", "word": "{{word3}}", "text": "And a {{word3}} on the shelf." },
+      { "kind": "say",        "text": "This is my cozy world. 这就是我舒适的小世界。", "ms": 2300 },
+      { "kind": "emote",      "emoji": "🌟", "ms": 700 }
+    ]
+  }
+]

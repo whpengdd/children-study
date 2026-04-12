@@ -1,0 +1,46 @@
+[
+  {
+    "name": "数数大冒险",
+    "script": [
+      { "kind": "say",   "text": "Watch me count! 看我数数！", "ms": 1600 },
+      { "kind": "emote", "emoji": "🔢", "ms": 500 },
+      { "kind": "say",   "text": "One! 一！",   "ms": 900 },
+      { "kind": "say",   "text": "Two! 二！",   "ms": 900 },
+      { "kind": "say",   "text": "Three! 三！", "ms": 900 },
+      { "kind": "say",   "text": "Four! 四！",  "ms": 900 },
+      { "kind": "say",   "text": "Five! 五！",  "ms": 900 },
+      { "kind": "action","emoji": "🙌", "ms": 700 },
+      { "kind": "say",   "text": "Six, seven, eight, nine, TEN! 六七八九十！", "ms": 2200 },
+      { "kind": "emote", "emoji": "🎉", "ms": 800 }
+    ]
+  },
+  {
+    "name": "数数跳跳舞",
+    "script": [
+      { "kind": "say",        "text": "1, 2, 3... ready to count? 准备好数数了吗？", "ms": 1800 },
+      { "kind": "action",     "emoji": "🦘", "ms": 700 },
+      { "kind": "say",        "text": "One jump! 跳一下！",   "ms": 800 },
+      { "kind": "say",        "text": "Two jumps! 跳两下！",  "ms": 800 },
+      { "kind": "say",        "text": "Three jumps! 跳三下！","ms": 800 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "Four {{word1}}s!" },
+      { "kind": "say",        "text": "Five, six, seven! 五六七！", "ms": 1400 },
+      { "kind": "say",        "text": "Eight, nine, and... TEN! 八九十！", "ms": 1600 },
+      { "kind": "action",     "emoji": "🏆", "ms": 800 },
+      { "kind": "emote",      "emoji": "😺", "ms": 500 }
+    ]
+  },
+  {
+    "name": "数字游戏",
+    "script": [
+      { "kind": "say",        "text": "Count with me from one to ten! 和我数到十！", "ms": 1800 },
+      { "kind": "speak_word", "word": "{{word1}}", "text": "One {{word1}}" },
+      { "kind": "speak_word", "word": "{{word2}}", "text": "Two {{word2}}s" },
+      { "kind": "say",        "text": "3, 4, 5", "ms": 1100 },
+      { "kind": "emote",      "emoji": "🖐️", "ms": 500 },
+      { "kind": "say",        "text": "6, 7, 8", "ms": 1100 },
+      { "kind": "say",        "text": "9...",    "ms": 600 },
+      { "kind": "action",     "emoji": "🎊", "ms": 900 },
+      { "kind": "say",        "text": "TEN! Wow! 十！哇！", "ms": 1400 }
+    ]
+  }
+]

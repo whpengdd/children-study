@@ -1,0 +1,32 @@
+{
+  "alphabet_song": {
+    "kind": "song",
+    "templates": ["alphabet_song"],
+    "unlockAt": { "stage": "baby" }
+  },
+  "count_1_10": {
+    "kind": "trick",
+    "templates": ["count_1_10"],
+    "unlockAt": { "graduatedCount": 10 }
+  },
+  "color_dance": {
+    "kind": "dance",
+    "templates": ["color_dance"],
+    "unlockAt": { "graduatedCount": 20 }
+  },
+  "animal_parade": {
+    "kind": "dance",
+    "templates": ["animal_parade"],
+    "unlockAt": { "graduatedCount": 20 }
+  },
+  "storytelling_basic": {
+    "kind": "story",
+    "templates": ["storytelling_basic"],
+    "unlockAt": { "stage": "teen", "graduatedCount": 50 }
+  },
+  "ket_warmup_quiz": {
+    "kind": "trick",
+    "templates": ["ket_warmup_quiz"],
+    "unlockAt": { "graduatedCount": 80 }
+  }
+}
