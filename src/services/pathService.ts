@@ -4,6 +4,7 @@
 // ProfileGate can fast-forward to /study next time they open the app.
 
 import { db } from "../data/db";
+import { syncProfileUpdate } from "./syncService";
 import type { LearningPath } from "../types/path";
 
 /**
@@ -17,10 +18,9 @@ export async function setCurrentPath(
 ): Promise<void> {
   const existing = await db.profiles.get(profileId);
   if (!existing) throw new Error(`profile ${profileId} not found`);
-  await db.profiles.update(profileId, {
-    lastPath: path,
-    lastActiveAt: new Date().toISOString(),
-  });
+  const lastActiveAt = new Date().toISOString();
+  await db.profiles.update(profileId, { lastPath: path, lastActiveAt });
+  syncProfileUpdate(profileId, { lastPath: path, lastActiveAt });
 }
 
 /** Returns the stored path or `null` if this profile has never chosen one. */

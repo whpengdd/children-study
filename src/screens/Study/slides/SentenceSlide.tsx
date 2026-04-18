@@ -1,14 +1,14 @@
 // src/screens/Study/slides/SentenceSlide.tsx
 //
 // Tier 1 passive exposure — read a full example sentence to the learner.
-// Autoplays once on mount, then lets the user tap to replay. Advance is
-// owned by StudyScreen's useAutoCarousel, not by this slide.
+// Autoplays on mount and only signals `onExposureDone` AFTER the audio has
+// actually finished, so the carousel doesn't preempt the kid hearing the line.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 import type { Scenario, Word } from "../../../types";
-import { speak } from "./slideShared";
+import { delay, speak, speakAndWait } from "./slideShared";
 
 interface Props {
   scenario: Extract<Scenario, { kind: "sentence" }>;
@@ -17,13 +17,31 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function SentenceSlide({ scenario, word }: Props) {
+/** Cushion after the sentence finishes before we hand off to the carousel. */
+const POST_SPEECH_MS = 800;
+
+export default function SentenceSlide({ scenario, word, onExposureDone }: Props) {
   const [playCount, setPlayCount] = useState(0);
 
+  // Stash the callback so changing it doesn't re-trigger the autoplay effect.
+  const doneRef = useRef(onExposureDone);
   useEffect(() => {
-    // Autoplay once on mount.
-    speak(scenario.text);
+    doneRef.current = onExposureDone;
+  }, [onExposureDone]);
+
+  useEffect(() => {
+    let cancelled = false;
     setPlayCount((c) => c + 1);
+    (async () => {
+      await speakAndWait(scenario.text);
+      if (cancelled) return;
+      await delay(POST_SPEECH_MS);
+      if (cancelled) return;
+      doneRef.current();
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [scenario.text]);
 
   const handleReplay = () => {

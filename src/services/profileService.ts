@@ -6,6 +6,8 @@
 
 import Dexie from "dexie";
 import { db } from "../data/db";
+import { api } from "./apiClient";
+import { syncProfileUpdate } from "./syncService";
 import type { Profile } from "../types/profile";
 
 export interface CreateProfileInput {
@@ -36,16 +38,47 @@ export async function createProfile(
     createdAt: now,
     lastActiveAt: now,
   };
-  const id = await db.profiles.add(row);
-  return { ...row, id };
+
+  // Try server first, then local Dexie
+  try {
+    const serverRow = await api.createProfile({ name, avatarEmoji: emoji });
+    const serverId = serverRow.id as number;
+    const localRow = { ...row, id: serverId };
+    await db.profiles.put(localRow);
+    return localRow;
+  } catch {
+    // Server unreachable — create locally, sync later
+    const id = await db.profiles.add(row);
+    return { ...row, id };
+  }
 }
 
-/** Return every profile, newest active first. */
+/** Return every profile, newest active first. Try server, fallback to local. */
 export async function listProfiles(): Promise<Profile[]> {
-  const all = await db.profiles.toArray();
-  return all.sort(
-    (a, b) => Date.parse(b.lastActiveAt) - Date.parse(a.lastActiveAt),
-  );
+  try {
+    const serverList = await api.listProfiles();
+    // Sync server profiles to local Dexie for offline access
+    const profiles = serverList.map((r) => ({
+      id: r.id as number,
+      name: r.name as string,
+      avatarEmoji: r.avatarEmoji as string,
+      createdAt: r.createdAt as string,
+      lastActiveAt: r.lastActiveAt as string,
+      lastPath: r.lastPath as Profile["lastPath"],
+    }));
+    for (const p of profiles) {
+      await db.profiles.put(p);
+    }
+    return profiles.sort(
+      (a, b) => Date.parse(b.lastActiveAt) - Date.parse(a.lastActiveAt),
+    );
+  } catch {
+    // Server unreachable — use local
+    const all = await db.profiles.toArray();
+    return all.sort(
+      (a, b) => Date.parse(b.lastActiveAt) - Date.parse(a.lastActiveAt),
+    );
+  }
 }
 
 /** Fetch a single profile by its auto-increment id. */
@@ -60,6 +93,9 @@ export async function getProfile(id: number): Promise<Profile | undefined> {
 export async function deleteProfile(id: number): Promise<void> {
   const existing = await db.profiles.get(id);
   if (!existing) throw toError("not_found", `Profile ${id} not found`);
+
+  // Delete on server (fire-and-forget — local cascade still runs)
+  api.deleteProfile(id).catch(() => {});
 
   // Cascade delete all profile-owned data in a single transaction.
   await db.transaction(
@@ -101,7 +137,9 @@ export async function deleteProfile(id: number): Promise<void> {
 
 /** Touch `lastActiveAt` to now. Called on each successful screen enter. */
 export async function updateLastActive(id: number): Promise<void> {
-  await db.profiles.update(id, { lastActiveAt: new Date().toISOString() });
+  const lastActiveAt = new Date().toISOString();
+  await db.profiles.update(id, { lastActiveAt });
+  syncProfileUpdate(id, { lastActiveAt });
 }
 
 function toError(

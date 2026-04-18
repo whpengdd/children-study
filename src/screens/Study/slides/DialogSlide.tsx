@@ -1,14 +1,15 @@
 // src/screens/Study/slides/DialogSlide.tsx
 //
 // Tier 1 passive exposure — play a short A/B dialog, highlighting the target
-// word wherever it appears. Each turn fades in with a stagger, then TTS reads
-// each line in sequence. Advance is owned by StudyScreen's useAutoCarousel.
+// word wherever it appears. Each turn waits for its TTS to finish before the
+// next reveals (no more racing setTimeouts), then `onExposureDone` is called
+// after a final cushion so the carousel doesn't cut the dialog mid-line.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 import type { Scenario, Word } from "../../../types";
-import { speak } from "./slideShared";
+import { delay, speakAndWait } from "./slideShared";
 
 interface Props {
   scenario: Extract<Scenario, { kind: "dialog" }>;
@@ -17,9 +18,13 @@ interface Props {
   disabled?: boolean;
 }
 
+/** Pause between consecutive turns to give a natural conversational beat. */
+const INTER_TURN_MS = 400;
+/** Cushion after the final turn finishes before we hand off to the carousel. */
+const FINAL_PAUSE_MS = 1000;
+
 function highlight(line: string, target: string): (string | JSX.Element)[] {
   if (!target) return [line];
-  // Match word-ish boundaries, case-insensitive, keep the original casing.
   const regex = new RegExp(`\\b(${target.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")})\\b`, "gi");
   const parts = line.split(regex);
   return parts.map((part, idx) =>
@@ -36,27 +41,44 @@ function highlight(line: string, target: string): (string | JSX.Element)[] {
   );
 }
 
-export default function DialogSlide({ scenario, word }: Props) {
+export default function DialogSlide({ scenario, word, onExposureDone }: Props) {
   const [revealedUpTo, setRevealedUpTo] = useState(0);
+  const [replayToken, setReplayToken] = useState(0);
+
+  const doneRef = useRef(onExposureDone);
+  useEffect(() => {
+    doneRef.current = onExposureDone;
+  }, [onExposureDone]);
 
   useEffect(() => {
     let cancelled = false;
-    let turnIndex = 0;
-
-    const playNext = () => {
-      if (cancelled || turnIndex >= scenario.turns.length) return;
-      const turn = scenario.turns[turnIndex];
-      setRevealedUpTo(turnIndex + 1);
-      speak(turn.text);
-      turnIndex += 1;
-      setTimeout(playNext, 1600);
-    };
-
-    playNext();
+    (async () => {
+      setRevealedUpTo(0);
+      for (let i = 0; i < scenario.turns.length; i++) {
+        if (cancelled) return;
+        const turn = scenario.turns[i];
+        setRevealedUpTo(i + 1);
+        await speakAndWait(turn.text);
+        if (cancelled) return;
+        if (i < scenario.turns.length - 1) {
+          await delay(INTER_TURN_MS);
+        }
+      }
+      if (cancelled) return;
+      await delay(FINAL_PAUSE_MS);
+      if (cancelled) return;
+      // Only the initial mount should trigger advance — replays are user-initiated
+      // and the carousel watchdog handles those.
+      if (replayToken === 0) doneRef.current();
+    })();
     return () => {
       cancelled = true;
     };
-  }, [scenario]);
+  }, [scenario, replayToken]);
+
+  const handleReplay = () => {
+    setReplayToken((t) => t + 1);
+  };
 
   return (
     <motion.div
@@ -107,18 +129,7 @@ export default function DialogSlide({ scenario, word }: Props) {
       </div>
       <button
         type="button"
-        onClick={() => {
-          setRevealedUpTo(0);
-          let i = 0;
-          const tick = () => {
-            if (i >= scenario.turns.length) return;
-            setRevealedUpTo(i + 1);
-            speak(scenario.turns[i].text);
-            i += 1;
-            setTimeout(tick, 1600);
-          };
-          tick();
-        }}
+        onClick={handleReplay}
         className="mt-2 min-h-12 rounded-2xl bg-indigo-500 px-6 py-3 text-lg font-semibold text-white shadow-md transition hover:bg-indigo-600 active:scale-95"
       >
         🔁 再听一遍

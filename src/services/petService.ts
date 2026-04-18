@@ -7,9 +7,11 @@
 // tests in src/services/__tests__/pet.test.ts can hit it without Dexie.
 
 import { db } from "../data/db";
+import { syncPet, syncPetEvents } from "./syncService";
 import type {
   LearningRewardEvent,
   Pet,
+  PetEvent,
   PetRewardResult,
   PetSkill,
   PetSpecies,
@@ -235,12 +237,15 @@ export async function hatchPet(
     lastShowAt: nowIso,
   };
   await db.pets.put(pet);
-  await db.petEvents.add({
+  const hatchEvent = {
     profileId,
     ts: nowIso,
-    kind: "feed",
+    kind: "feed" as const,
     payload: { reason: "hatch", species, name },
-  });
+  };
+  await db.petEvents.add(hatchEvent);
+  syncPet(profileId, pet);
+  syncPetEvents(profileId, [hatchEvent]);
   return pet;
 }
 
@@ -313,32 +318,34 @@ export async function rewardFromLearning(
 
   // Event log — one `feed` per reward, plus an `evolve` / `unlock_skill`
   // when milestones crossed. Keeps the parent-audit story sane.
-  await db.petEvents.add({
-    profileId,
-    ts: nowIso,
-    kind: "feed",
-    payload: {
-      event,
-      xpGained,
-      delta,
-    },
-  });
+  const newEvents: PetEvent[] = [];
+  const feedEvt: PetEvent = {
+    profileId, ts: nowIso, kind: "feed",
+    payload: { event, xpGained, delta },
+  };
+  await db.petEvents.add(feedEvt);
+  newEvents.push(feedEvt);
+
   if (stageChanged) {
-    await db.petEvents.add({
-      profileId,
-      ts: nowIso,
-      kind: "evolve",
+    const evolveEvt: PetEvent = {
+      profileId, ts: nowIso, kind: "evolve",
       payload: { previousStage, newStage: pet.stage },
-    });
+    };
+    await db.petEvents.add(evolveEvt);
+    newEvents.push(evolveEvt);
   }
   for (const s of skillsUnlocked) {
-    await db.petEvents.add({
-      profileId,
-      ts: nowIso,
-      kind: "unlock_skill",
+    const skillEvt: PetEvent = {
+      profileId, ts: nowIso, kind: "unlock_skill",
       payload: { skillId: s.id, name: s.name },
-    });
+    };
+    await db.petEvents.add(skillEvt);
+    newEvents.push(skillEvt);
   }
+
+  // Sync to server (fire-and-forget)
+  syncPet(profileId, pet);
+  syncPetEvents(profileId, newEvents);
 
   return { xpGained, stageChanged, skillsUnlocked };
 }
@@ -362,11 +369,12 @@ export async function applyStatDecay(profileId: number): Promise<Pet | undefined
   const nowIso = new Date().toISOString();
   pet.lastFedAt = nowIso;
   await db.pets.put(pet);
-  await db.petEvents.add({
-    profileId,
-    ts: nowIso,
-    kind: "stat_decay",
+  const decayEvt: PetEvent = {
+    profileId, ts: nowIso, kind: "stat_decay",
     payload: { elapsedDays },
-  });
+  };
+  await db.petEvents.add(decayEvt);
+  syncPet(profileId, pet);
+  syncPetEvents(profileId, [decayEvt]);
   return pet;
 }

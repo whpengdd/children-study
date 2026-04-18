@@ -10,6 +10,7 @@
 // read to rehydrate past performances.
 
 import { db } from "../data/db";
+import { syncShow, syncPet, syncPetEvents } from "./syncService";
 import {
   loadIndex,
   loadTemplate,
@@ -41,14 +42,13 @@ export class ShowDispatchError extends Error {}
 // ---------------------------------------------------------------------------
 
 /**
- * Decide the effective generation mode, given a settings row (or null).
- * Falls to "offline" any time there's no API key.
+ * Decide the effective generation mode. Now that the key lives on the backend,
+ * we default to "full" unless the user explicitly chose otherwise.
  */
 export function resolveGenerationMode(
   settings: Settings | null | undefined,
 ): GenerationMode {
-  if (!settings) return "offline";
-  if (!settings.anthropicApiKey) return "offline";
+  if (!settings) return "full";
   return settings.showGenerationMode;
 }
 
@@ -278,16 +278,22 @@ export async function triggerShow(
   const nowIso = new Date().toISOString();
   pet.lastShowAt = nowIso;
   await db.pets.put(pet);
-  await db.petEvents.add({
+  const showEvt = {
     profileId,
     ts: nowIso,
-    kind: "show",
+    kind: "show" as const,
     payload: {
       skillId: skill.id,
       source: show.source,
       stepCount: show.script.length,
     },
-  });
+  };
+  await db.petEvents.add(showEvt);
+
+  // Sync to server
+  syncShow(profileId, show);
+  syncPet(profileId, pet);
+  syncPetEvents(profileId, [showEvt]);
 
   return show;
 }

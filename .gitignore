@@ -18,13 +18,20 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-# env
+# env (contains API keys)
 .env
 .env.local
 .env.*.local
+server/.env
 
 # pipeline caches
 .cache/
+
+# server runtime data
+server/data/
+
+# claude code transient state
+.claude/scheduled_tasks.lock
 
 # OS
 .DS_Store

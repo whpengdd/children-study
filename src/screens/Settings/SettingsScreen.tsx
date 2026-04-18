@@ -246,14 +246,9 @@ export default function SettingsScreen() {
             🐾 宠物 / AI
           </h2>
           <div className="space-y-3">
-            <Input
-              type="password"
-              label="Anthropic API Key"
-              placeholder="sk-ant-…"
-              helper="这个 key 只存在你的设备上,不会上传任何地方"
-              value={settings.anthropicApiKey ?? ""}
-              onChange={(e) => updateField("anthropicApiKey", e.target.value || undefined)}
-            />
+            <div className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+              AI 密钥已在服务器端配置，无需在此输入
+            </div>
 
             <div>
               <div className="mb-1 text-sm font-medium text-gray-800">

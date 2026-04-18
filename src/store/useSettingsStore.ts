@@ -7,6 +7,7 @@
 import { create } from "zustand";
 
 import { db } from "../data/db";
+import { syncSettings } from "../services/syncService";
 import type { Settings } from "../types";
 
 /**
@@ -89,6 +90,7 @@ export const useSettingsStore = create<SettingsStoreState>((set, get) => ({
     set({ settings: next });
     try {
       await db.settings.put(next);
+      syncSettings(current.profileId, next);
     } catch (err) {
       console.warn("[useSettingsStore] updateField persist failed:", err);
     }
@@ -103,6 +105,7 @@ export const useSettingsStore = create<SettingsStoreState>((set, get) => ({
     set({ settings: next });
     try {
       await db.settings.put(next);
+      syncSettings(current.profileId, next);
     } catch (err) {
       console.warn("[useSettingsStore] updateSettings persist failed:", err);
     }
@@ -113,6 +116,7 @@ export const useSettingsStore = create<SettingsStoreState>((set, get) => ({
     set({ settings: fresh });
     try {
       await db.settings.put(fresh);
+      syncSettings(profileId, fresh);
     } catch (err) {
       console.warn("[useSettingsStore] resetForProfile persist failed:", err);
     }

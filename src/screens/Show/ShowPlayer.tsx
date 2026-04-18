@@ -34,10 +34,10 @@ export interface ShowPlayerProps {
 // ---------------------------------------------------------------------------
 
 /**
- * Best-effort speak. We use the real audioService from Wave 1 (via dynamic
- * import) so we benefit from its YouDao fallback on platforms without
- * speechSynthesis. If the import fails for any reason, fall back to the
- * inline Web Speech API.
+ * Speak and wait for the audio to FINISH (not just start). Returns a promise
+ * that resolves after `onend` fires (or a hard timeout cap fires inside
+ * audioService). Callers can `await speakSoft(...)` to gate slide advance on
+ * "the kid actually heard the line".
  */
 async function speakSoft(text: string): Promise<void> {
   const trimmed = (text ?? "").trim();
@@ -51,7 +51,6 @@ async function speakSoft(text: string): Promise<void> {
   } catch {
     /* fall through */
   }
-  // Inline fallback — no TTS service available.
   try {
     if (
       typeof window !== "undefined" &&
@@ -62,12 +61,31 @@ async function speakSoft(text: string): Promise<void> {
       utter.lang = "en-US";
       utter.rate = 0.95;
       utter.pitch = 1.05;
-      window.speechSynthesis.speak(utter);
+      await new Promise<void>((resolve) => {
+        let done = false;
+        const settle = () => {
+          if (done) return;
+          done = true;
+          resolve();
+        };
+        utter.onend = settle;
+        utter.onerror = settle;
+        window.setTimeout(settle, 6000);
+        window.speechSynthesis.speak(utter);
+      });
     }
   } catch {
     /* ignore — silent fallback is OK */
   }
 }
+
+/** Cancel-safe sleep used to add a small post-speech cushion before advancing. */
+function delay(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, Math.max(0, ms)));
+}
+
+/** Post-speech absorb pause for `say` and `speak_word` steps. */
+const SPEECH_ABSORB_MS = 700;
 
 /** Strip the Chinese portion from a bilingual line to get the "spoken" text. */
 function englishSliceOf(text: string | undefined): string {
@@ -127,10 +145,12 @@ export function ShowPlayer({
     onComplete();
   }, [onComplete]);
 
-  // Drive the step-advancement loop. Each step fires its side-effect (TTS)
-  // and schedules a timer for `ms`, then advances. When we're past the last
-  // step, flag finished and kick off the 2s delay before handing control to
-  // the parent.
+  // Drive the step-advancement loop. For speech steps (`say` / `speak_word`)
+  // we await the TTS, then a small absorb pause, then advance — so the kid
+  // actually hears the word before the next slide kicks in. The step's
+  // configured `ms` becomes a MINIMUM floor (we race speech against it) so
+  // emote-like timings are still respected. For non-speech steps we keep the
+  // original setTimeout behavior.
   useEffect(() => {
     if (finished) return;
     if (script.length === 0) {
@@ -144,25 +164,42 @@ export function ShowPlayer({
 
     const step = script[index];
     let cancelled = false;
+    let timer: number | undefined;
 
-    // Side-effects per kind
-    if (step.kind === "say") {
-      const spoken = englishSliceOf(step.text);
-      if (spoken) void speakSoft(spoken);
-    } else if (step.kind === "speak_word") {
-      const word = step.word ?? englishSliceOf(step.text);
-      if (word) void speakSoft(word);
-    }
-
-    // Advance after the step's duration.
-    const timer = window.setTimeout(() => {
+    const advanceIfLive = () => {
       if (cancelled) return;
       setIndex((i) => i + 1);
-    }, stepDuration(step));
+    };
+
+    if (step.kind === "say" || step.kind === "speak_word") {
+      const spoken =
+        step.kind === "speak_word"
+          ? step.word ?? englishSliceOf(step.text)
+          : englishSliceOf(step.text);
+      const minMs = stepDuration(step);
+      const minDelay = delay(minMs);
+      const speechDone = spoken ? speakSoft(spoken) : Promise.resolve();
+      // Race nothing — wait for BOTH the TTS to finish AND the min-floor.
+      void Promise.all([speechDone, minDelay]).then(async () => {
+        if (cancelled) return;
+        await delay(SPEECH_ABSORB_MS);
+        advanceIfLive();
+      });
+    } else {
+      timer = window.setTimeout(advanceIfLive, stepDuration(step));
+    }
 
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
+      if (timer !== undefined) window.clearTimeout(timer);
+      // Aborts any in-flight TTS so the next step doesn't have to fight it.
+      void import("../../services/audioService").then((mod) => {
+        try {
+          mod.cancel();
+        } catch {
+          /* ignore */
+        }
+      });
     };
   }, [index, script, finished]);
 
@@ -173,8 +210,15 @@ export function ShowPlayer({
     return () => window.clearTimeout(t);
   }, [finished, handleComplete]);
 
-  // Skip button: jump to the last step, effectively ending playback fast.
+  // Skip button: abort any in-flight TTS, then jump to the end.
   const handleSkip = useCallback(() => {
+    void import("../../services/audioService").then((mod) => {
+      try {
+        mod.cancel();
+      } catch {
+        /* ignore */
+      }
+    });
     setFinished(true);
   }, []);
 

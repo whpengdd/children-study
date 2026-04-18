@@ -1,14 +1,14 @@
 // src/screens/Study/slides/ImageSlide.tsx
 //
 // Tier 1 passive exposure — show a huge emoji + caption + Chinese translation.
-// Pairs the visual with TTS of the headWord. Advance is owned by StudyScreen's
-// useAutoCarousel, not by this slide.
+// Pairs the visual with TTS of the headWord. Signals `onExposureDone` only
+// AFTER the audio has finished so the carousel doesn't preempt the listen.
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 import type { Scenario, Word } from "../../../types";
-import { speak } from "./slideShared";
+import { delay, speak, speakAndWait } from "./slideShared";
 
 interface Props {
   scenario: Extract<Scenario, { kind: "image" }>;
@@ -17,9 +17,27 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function ImageSlide({ scenario, word }: Props) {
+/** Cushion after the word finishes before we advance. */
+const POST_SPEECH_MS = 800;
+
+export default function ImageSlide({ scenario, word, onExposureDone }: Props) {
+  const doneRef = useRef(onExposureDone);
   useEffect(() => {
-    speak(word.headWord);
+    doneRef.current = onExposureDone;
+  }, [onExposureDone]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      await speakAndWait(word.headWord);
+      if (cancelled) return;
+      await delay(POST_SPEECH_MS);
+      if (cancelled) return;
+      doneRef.current();
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [word.headWord]);
 
   return (

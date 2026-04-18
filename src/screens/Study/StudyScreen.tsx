@@ -53,11 +53,22 @@ import StudyTopBar from "./StudyTopBar";
 
 /** Ms to linger on a correct answer before advancing (lets the banner play). */
 const CORRECT_ADVANCE_DELAY_MS = 900;
-/** Default Tier 1 auto-advance duration when settings omit it. */
-const DEFAULT_TIER1_MS = 4000;
+/**
+ * Watchdog ceiling for Tier 1 — primary advance is now driven by each slide's
+ * own `onExposureDone()` (after its TTS truly finishes). This timer only fires
+ * if a slide gets stuck (e.g. TTS errored silently and the slide forgot to
+ * resolve). 30s is comfortably longer than the longest expected dialog/chant.
+ */
+const TIER1_WATCHDOG_MS = 30_000;
 /** Ambient-mode Tier 2-4 auto-skip duration. */
 const AMBIENT_SKIP_MS = 15000;
 
+/**
+ * Per-speed cushion used by Tier-1 slides between/after lines. Kept in the
+ * settings union for back-compat — slides import `delay()` from slideShared
+ * directly today, but this map remains in case a future tweak wants to scale
+ * the cushions by user preference.
+ */
 const CAROUSEL_SPEED_MS: Record<"slow" | "normal" | "fast", number> = {
   slow: 5500,
   normal: 4000,
@@ -395,9 +406,10 @@ export default function StudyScreen({ reviewOnly = false }: StudyScreenProps) {
     !!currentItem && currentItem.scenario.tier === 1 && currentItem.kind !== "review";
   const ambient = !!effectiveSettings?.ambientMode;
 
-  const tier1Duration = useMemo(() => {
-    if (!effectiveSettings) return DEFAULT_TIER1_MS;
-    return CAROUSEL_SPEED_MS[effectiveSettings.carouselSpeed] ?? DEFAULT_TIER1_MS;
+  // Reference kept so future per-speed tuning of cushions stays available.
+  void useMemo(() => {
+    if (!effectiveSettings) return TIER1_WATCHDOG_MS;
+    return CAROUSEL_SPEED_MS[effectiveSettings.carouselSpeed] ?? TIER1_WATCHDOG_MS;
   }, [effectiveSettings]);
 
   const autoActive =
@@ -407,7 +419,9 @@ export default function StudyScreen({ reviewOnly = false }: StudyScreenProps) {
     status === "ready" &&
     (isTier1 ? true : ambient);
 
-  const autoDuration = isTier1 ? tier1Duration : AMBIENT_SKIP_MS;
+  // Tier 1: long watchdog only — slides drive primary advance via onExposureDone.
+  // Tier 2-4 ambient mode: keep the original 15s auto-skip behavior.
+  const autoDuration = isTier1 ? TIER1_WATCHDOG_MS : AMBIENT_SKIP_MS;
 
   const onAutoExpire = useCallback(() => {
     if (!currentItem) return;
@@ -518,10 +532,16 @@ export default function StudyScreen({ reviewOnly = false }: StudyScreenProps) {
         rightSlot={
           <CarouselControls
             paused={paused}
-            onTogglePause={() => setPaused((p) => !p)}
+            onTogglePause={() => {
+              setPaused((p) => {
+                if (!p) cancelSpeak();
+                return !p;
+              });
+            }}
             onSkip={
               currentTier === 1
                 ? () => {
+                    cancelSpeak();
                     void handleExposureDone();
                   }
                 : undefined

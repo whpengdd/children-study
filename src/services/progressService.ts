@@ -12,6 +12,7 @@
 // state machine unit-testable without a fake-IDB.
 
 import { db } from "../data/db";
+import { syncWordProgress, syncCheckAttempt } from "./syncService";
 import type { Word } from "../types/vocab";
 import type {
   CheckAttempt,
@@ -336,6 +337,7 @@ export async function completeExposure(
   const result = applyExposure(p, item, seenInSession);
   if (result.advanced) {
     await db.wordProgress.put(result.progress);
+    syncWordProgress(profileId, result.progress);
   }
   return { learningEvent: result.learningEvent };
 }
@@ -356,6 +358,8 @@ export async function submitCheck(
   const result = applyCheck(p, item, correct, latencyMs);
   await db.checkAttempts.add(result.attempt);
   await db.wordProgress.put(result.progress);
+  syncCheckAttempt(profileId, result.attempt);
+  syncWordProgress(profileId, result.progress);
   return {
     learningEvent: result.learningEvent,
     stageChange: result.stageChange,
@@ -377,5 +381,7 @@ export async function submitReview(
   const result = applyReview(p, item, correct, latencyMs);
   await db.checkAttempts.add(result.attempt);
   await db.wordProgress.put(result.progress);
+  syncCheckAttempt(profileId, result.attempt);
+  syncWordProgress(profileId, result.progress);
   return { learningEvent: result.learningEvent };
 }

@@ -13,6 +13,7 @@ import {
   listProfiles,
   updateLastActive,
 } from "../services/profileService";
+import { pullSnapshot } from "../services/syncService";
 import { db } from "../data/db";
 import type { Profile } from "../types";
 
@@ -104,11 +105,15 @@ export const useProfileStore = create<ProfileStoreState>((set, get) => ({
       await updateLastActive(profileId).catch(() => {});
       writeLastProfileId(profileId);
       set({ activeProfile: retry });
+      // Pull latest data from server (non-blocking)
+      pullSnapshot(profileId).catch(() => {});
       return;
     }
     await updateLastActive(profileId).catch(() => {});
     writeLastProfileId(profileId);
     set({ activeProfile: row });
+    // Pull latest data from server (non-blocking)
+    pullSnapshot(profileId).catch(() => {});
   },
 
   updateProfile: async (profileId, patch) => {

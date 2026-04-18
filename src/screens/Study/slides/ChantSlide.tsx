@@ -1,13 +1,14 @@
 // src/screens/Study/slides/ChantSlide.tsx
 //
-// Tier 1 passive exposure — rhythmic chant. Each line fades in with a 400ms
-// stagger and is read aloud. Advance is owned by StudyScreen's useAutoCarousel.
+// Tier 1 passive exposure — rhythmic chant. Each line reveals only after the
+// previous line's TTS has finished, then `onExposureDone` fires after a final
+// cushion so the carousel doesn't preempt the chant.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 import type { Scenario, Word } from "../../../types";
-import { speak } from "./slideShared";
+import { delay, speakAndWait } from "./slideShared";
 
 interface Props {
   scenario: Extract<Scenario, { kind: "chant" }>;
@@ -16,36 +17,45 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function ChantSlide({ scenario, word }: Props) {
+/** Pause between consecutive lines. */
+const INTER_LINE_MS = 250;
+/** Cushion after the final line finishes before we hand off to the carousel. */
+const FINAL_PAUSE_MS = 800;
+
+export default function ChantSlide({ scenario, word, onExposureDone }: Props) {
   const [visibleCount, setVisibleCount] = useState(0);
+  const [replayToken, setReplayToken] = useState(0);
+
+  const doneRef = useRef(onExposureDone);
+  useEffect(() => {
+    doneRef.current = onExposureDone;
+  }, [onExposureDone]);
 
   useEffect(() => {
     let cancelled = false;
-    let i = 0;
-    const step = () => {
-      if (cancelled || i >= scenario.lines.length) return;
-      setVisibleCount(i + 1);
-      speak(scenario.lines[i]);
-      i += 1;
-      setTimeout(step, 900);
-    };
-    step();
+    (async () => {
+      setVisibleCount(0);
+      for (let i = 0; i < scenario.lines.length; i++) {
+        if (cancelled) return;
+        setVisibleCount(i + 1);
+        await speakAndWait(scenario.lines[i]);
+        if (cancelled) return;
+        if (i < scenario.lines.length - 1) {
+          await delay(INTER_LINE_MS);
+        }
+      }
+      if (cancelled) return;
+      await delay(FINAL_PAUSE_MS);
+      if (cancelled) return;
+      if (replayToken === 0) doneRef.current();
+    })();
     return () => {
       cancelled = true;
     };
-  }, [scenario]);
+  }, [scenario, replayToken]);
 
   const handleReplay = () => {
-    setVisibleCount(0);
-    let i = 0;
-    const tick = () => {
-      if (i >= scenario.lines.length) return;
-      setVisibleCount(i + 1);
-      speak(scenario.lines[i]);
-      i += 1;
-      setTimeout(tick, 900);
-    };
-    tick();
+    setReplayToken((t) => t + 1);
   };
 
   return (
